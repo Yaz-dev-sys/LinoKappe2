@@ -1,0 +1,68 @@
+{% extends 'Tienda/base.html' %}
+{% load static %}
+
+{% block title %}Agregar Gorra{% endblock %}
+
+{% block content %}
+
+<section class="form-section">
+    <h2>Agregar Nueva Gorra</h2>
+    
+    <form method="post" enctype="multipart/form-data" class="gorra-form">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="{{ form.nombre.id_for_label }}">Nombre:</label>
+            {{ form.nombre }}
+        </div>
+        
+        <div class="form-group">
+            <label for="{{ form.imagen.id_for_label }}">Imagen:</label>
+            {{ form.imagen }}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.imagen.id_for_label }}">Imagen:</label>
+            {{ form.imagen2 }}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.imagen.id_for_label }}">Imagen:</label>
+            {{ form.imagen3 }}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.imagen.id_for_label }}">Imagen:</label>
+            {{ form.imagen4 }}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.imagen.id_for_label }}">Imagen:</label>
+            {{ form.imagen5 }}
+        </div>
+        
+        <div class="form-group">
+            <label for="{{ form.descripcion.id_for_label }}">Descripción:</label>
+            {{ form.descripcion }}
+        </div>
+        
+        <div class="form-row">
+            <div class="form-group">
+                <label for="{{ form.precio.id_for_label }}">Precio:</label>
+                {{ form.precio }}
+            </div>
+            
+            <div class="form-group">
+                <label for="{{ form.stock.id_for_label }}">Stock:</label>
+                {{ form.stock }}
+            </div>
+        </div>
+        
+        <div class="form-group checkbox">
+            {{ form.disponible }}
+            <label for="{{ form.disponible.id_for_label }}">Disponible</label>
+        </div>
+        
+        <button type="submit" class="btn">Guardar Gorra</button>
+    </form>
+</section>
+{% endblock %}

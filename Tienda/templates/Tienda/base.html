@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinoKappe - {% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static "css/styles.css" %}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <header>
+        <div class="container nav-container">
+            <div class="logo">
+                Lino<span>Kappe</span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="{% url 'inicio' %}">Inicio</a></li>
+                    <li><a href="#">Productos</a></li>
+                    <li><a href="#">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <section class="hero">
+        <!-- Video de fondo -->
+        <video autoplay muted loop id="video-background">
+            <source src="{% static "videos/size.mp4" %}" type="video/mp4">
+            Tu navegador no soporta videos HTML5.
+        </video>
+        <div class="container">
+            <div class="hero-content">
+                <h1>Estilo y Personalidad en cada Gorra</h1>
+                <p>Descubre nuestra exclusiva colección de gorras premium diseñadas para complementar tu estilo único y destacar en cualquier ocasión.</p>
+                <a href="#" class="btn">Ver Colección</a>
+            </div>
+        </div>
+    </section>
+    <main class="container">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-column">
+                <h3>LinoKappe</h3>
+                <p>Las mejores gorras con estilo urbano.</p>
+            </div>
+            <div class="footer-column">
+                <h3>Enlaces</h3>
+                <ul>
+                    <li><a href="{% url 'inicio' %}">Inicio</a></li>
+                    <li><a href="#">Productos</a></li>
+                    <li><a href="#">Contacto</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Contacto</h3>
+                <p>info@linokappe.com</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 Hine Digital. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Font Awesome para iconos -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    {% block extra_js %}{% endblock %}
+
+</body>
+</html>

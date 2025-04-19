@@ -1,0 +1,130 @@
+    {% extends 'Tienda/base.html' %}
+    {% load static %}
+
+    {% block title %}{{ gorra.nombre }}{% endblock %}
+
+    {% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/stylesPersonalizador4.css' %}">
+    <!-- SweetAlert2 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+<!-- SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    {% endblock %}
+
+    {% block content %}
+    <section class="product-detail">
+        <div class="product-detail-container">
+            <div class="product-detail-image">
+                <img id="main-image" src="{{ gorra.imagen.url }}" alt="{{ gorra.nombre }}">
+                
+                <div class="thumbnail-container">
+                    <div class="thumbnail active" onclick="changeImage('{{ gorra.imagen.url }}', this)">
+                        <img src="{{ gorra.imagen.url }}" alt="{{ gorra.nombre }} - Principal">
+                    </div>
+                    {% if gorra.imagen2 %}
+                    <div class="thumbnail" onclick="changeImage('{{ gorra.imagen2.url }}', this)">
+                        <img src="{{ gorra.imagen2.url }}" alt="{{ gorra.nombre }} - Vista 2">
+                    </div>
+                    {% endif %}
+                    {% if gorra.imagen3 %}
+                    <div class="thumbnail" onclick="changeImage('{{ gorra.imagen3.url }}', this)">
+                        <img src="{{ gorra.imagen3.url }}" alt="{{ gorra.nombre }} - Vista 3">
+                    </div>
+                    {% endif %}
+                    {% if gorra.imagen4 %}
+                    <div class="thumbnail" onclick="changeImage('{{ gorra.imagen4.url }}', this)">
+                        <img src="{{ gorra.imagen4.url }}" alt="{{ gorra.nombre }} - Vista 4">
+                    </div>
+                    {% endif %}
+                    {% if gorra.imagen5 %}
+                    <div class="thumbnail" onclick="changeImage('{{ gorra.imagen5.url }}', this)">
+                        <img src="{{ gorra.imagen5.url }}" alt="{{ gorra.nombre }} - Vista 5">
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="product-detail-info">
+                <h1>{{ gorra.nombre }}</h1>
+                <div class="price">${{ gorra.precio }}</div>
+                
+                <div class="stock-info">
+                    {% if gorra.stock > 0 %}
+                        <span class="in-stock">En stock ({{ gorra.stock }} unidades)</span>
+                    {% else %}
+                        <span class="out-of-stock">Agotado</span>
+                    {% endif %}
+                </div>
+                
+                <div class="description">
+                    <h3>Descripción</h3>
+                    <p>{{ gorra.descripcion }}</p>
+                </div>
+                
+                <div class="product-actions">
+                    <div class="quantity-selector">
+                        <label for="quantity">Cantidad:</label>
+                        <div class="quantity-controls">
+                            <button type="button" class="quantity-btn decrease" id="decrease-quantity">-</button>
+                            <input type="number" id="quantity" name="quantity" min="1" max="{{ gorra.stock }}" value="1">
+                            <button type="button" class="quantity-btn increase" id="increase-quantity">+</button>
+                        </div>
+                    </div>
+                    <button class="btn" id="add-to-cart-btn">Añadir al carrito</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Personalizador de Gorras -->
+        <div class="personalizer-container">
+            <h2 class="personalizer-title">Personaliza tu gorra</h2>
+            <div class="hat-canvas-container">
+                <img id="hat-canvas" src="{{ gorra.imagen.url }}" alt="Gorra para personalizar">
+                <img id="logo-preview" src="" alt="Logo personalizado">
+            </div>
+            <div class="personalizer-controls">
+                <input type="file" id="logo-upload" class="file-input" accept="image/*">
+                <button id="upload-btn" class="upload-btn">Agregar logo</button>
+                <button id="apply-btn" class="apply-btn" disabled>Aplicar cambios y Comprar</button>
+                <button id="reset-btn" class="reset-btn">Reiniciar</button>
+            </div>
+            <p>Haz clic en la gorra para posicionar tu logo donde desees.</p>
+            
+
+        </div>
+
+        <!-- Modal de Pedido -->
+<div id="pedido-modal" class="modal" style="display:none;">
+    <div class="modal-content">
+      <span class="close-btn">&times;</span>
+      <h2>Finalizar Pedido</h2>
+      <form id="pedido-form" enctype="multipart/form-data">
+          {% csrf_token %}
+          <label for="nombre">Nombre:</label>
+          <input type="hidden" name="gorra_id" id="gorra-id-field">
+          <input type="text" name="nombre" required>
+          
+          <label for="email">Correo electrónico:</label>
+          <input type="email" name="email" required>
+          
+          <label for="cantidad">Cantidad:</label>
+          <input type="number" name="cantidad" min="1" required>
+          
+          <input type="hidden" name="foto1" id="foto1-input">
+          <input type="hidden" name="foto2" id="foto2-input">
+          <input type="hidden" name="foto3" id="foto3-input">
+          <input type="hidden" name="foto4" id="foto4-input">
+          <input type="hidden" name="foto5" id="foto5-input">
+          
+          
+          <button type="submit" class="submit-btn">Confirmar Pedido</button>
+      </form>
+    </div>
+  </div>
+  
+    </section>
+
+    {% endblock %}
+
+    {% block extra_js %}
+    <script src="{% static 'js/jsPersonalizador3.js' %}"></script>
+    {% endblock %}

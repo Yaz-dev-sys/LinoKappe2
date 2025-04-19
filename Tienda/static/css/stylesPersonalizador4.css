@@ -1,0 +1,331 @@
+/* Estilos para el contenedor del personalizador */
+.personalizer-container {
+    margin-top: 40px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+.personalizer-title {
+    font-size: 22px;
+    margin-bottom: 15px;
+    color: #333;
+    font-weight: bold;
+}
+
+/* Contenedor del canvas */
+.hat-canvas-container {
+    position: relative;
+    width: 100%;
+    margin-bottom: 20px;
+    max-width: 500px;
+    margin: 0 auto 20px;
+}
+
+#hat-canvas {
+    border: 1px solid #ccc;
+    background-color: #fff;
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Estilos para el logo */
+#logo-preview {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: auto;
+    height: auto;
+    display: none;
+    opacity: 1 !important;
+    z-index: 100;
+    pointer-events: auto;
+    transition: transform 0.1s ease-out;
+    max-width: none;
+    max-height: none;
+}
+
+/* Controles del personalizador */
+.personalizer-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 20px;
+    justify-content: center;
+}
+
+.file-input {
+    display: none;
+}
+
+/* Botones del personalizador */
+.upload-btn {
+    background-color: #4a6ea9;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.upload-btn:hover {
+    background-color: #3c5a8a;
+}
+
+.apply-btn {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.apply-btn:hover {
+    background-color: #218838;
+}
+
+.apply-btn:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+}
+
+.reset-btn {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.reset-btn:hover {
+    background-color: #c82333;
+}
+
+/* Controles de tamaño */
+.size-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.size-controls button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    font-size: 18px;
+    cursor: pointer;
+    margin: 0 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.size-controls button:hover {
+    background-color: #0056b3;
+}
+
+#size-value {
+    font-weight: bold;
+    min-width: 60px;
+    text-align: center;
+}
+
+/* Selector de cantidad */
+.product-actions {
+    margin-top: 20px;
+}
+
+.quantity-selector {
+    margin-bottom: 15px;
+}
+
+.quantity-selector label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.quantity-controls {
+    display: flex;
+    align-items: center;
+}
+
+.quantity-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    width: 30px;
+    height: 30px;
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.quantity-btn:hover {
+    background-color: #0056b3;
+}
+
+#quantity {
+    width: 50px;
+    height: 30px;
+    text-align: center;
+    margin: 0 5px;
+    border: 1px solid #ccc;
+    padding: 0 5px;
+}
+
+/* Quitar las flechas del input number en algunos navegadores */
+#quantity::-webkit-inner-spin-button, 
+#quantity::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+#quantity {
+    -moz-appearance: textfield; /* Firefox */
+}
+
+#add-to-cart-btn {
+    width: 100%;
+    margin-top: 5px;
+}
+
+/* Instrucciones para el usuario */
+.personalizer-container p {
+    text-align: center;
+    font-style: italic;
+    color: #666;
+    margin-top: 10px;
+}
+
+.thumbnail-personalized {
+    position: relative;
+}
+
+.thumbnail-personalized::after {
+    content: "✓";
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: #28a745;
+    color: white;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: bold;
+}
+/* Estilos para el fondo del modal */
+.modal {
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5); /* fondo oscuro */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Estilos para el contenido del modal */
+.modal-content {
+    background-color: #fff;
+    padding: 20px 30px;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.3);
+    position: relative;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 20px;
+    cursor: pointer;
+}
+/* Estilos para el formulario del modal */
+#pedido-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+#pedido-form label {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+    display: block;
+}
+
+#pedido-form input[type="text"],
+#pedido-form input[type="email"],
+#pedido-form input[type="number"] {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    width: 100%;
+}
+
+#pedido-form input[type="number"]::-webkit-inner-spin-button, 
+#pedido-form input[type="number"]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+#pedido-form input[type="number"] {
+    -moz-appearance: textfield; /* Firefox */
+}
+
+.submit-btn {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 10px;
+    transition: background-color 0.3s;
+}
+
+.submit-btn:hover {
+    background-color: #218838;
+}
+
+/* Mejoras para el modal existente */
+.modal-content h2 {
+    margin-top: 0;
+    color: #333;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.close-btn:hover {
+    color: #dc3545;
+}
