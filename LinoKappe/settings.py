@@ -146,3 +146,6 @@ STORAGES = {
 
 ALLOWED_HOSTS =['Localhost','linokappe-production.up.railway.app']
 
+
+CSRF_TRUSTED_ORIGINS = ['http://*','https://linokappe-production.up.railway.app']
+
