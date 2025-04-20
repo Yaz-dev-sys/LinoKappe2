@@ -1,2 +1,2 @@
-web: gunicorn LinoKappe.wsgi
+web: python3 manage.py collectstatic &&  gunicorn LinoKappe.wsgi
 
