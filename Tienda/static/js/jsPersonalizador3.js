@@ -135,7 +135,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 DOM.logoPreview.style.top = '50px';
                 state.logoX = 50;
                 state.logoY = 50;
-                state.logoScale = 1.0;
+                state.logoScale = 0.3;
                 updateLogoSize();
                 DOM.applyBtn.disabled = false;
                 saveCurrentState();

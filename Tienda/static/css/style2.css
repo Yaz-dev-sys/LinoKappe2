@@ -1,12 +1,11 @@
 
-
 :root {
-    --primary-color: #ff4e50;
-    --secondary-color: #2c3e50;
-    --accent-color: #741c97;
-    --text-light: #ffffff;
-    --text-dark: #333333;
-    --text-gray: #a1a0a0;
+    --primary-color: #cc0000;     /* The red color from "K" and "KAPE" */
+    --secondary-color: #0a1155;   /* The dark blue background color */
+    --accent-color: #ffffff;      /* The white color used in the logo */
+    --text-light: #ffffff;        /* Keeping the white text color */
+    --text-dark: #0a1155;         /* Using the dark blue for dark text */
+    --text-gray: #a1a0a0;         /* Keeping the original gray text color */
 }
 
 * {
@@ -38,21 +37,22 @@ header {
 }
 
 .nav-container {
+    height: auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
 .logo {
-    font-size: 2rem;
-    font-weight: 700;
     display: flex;
     align-items: center;
 }
 
-.logo span {
-    color: var(--accent-color);
+.logo img {
+    max-height: 150px; /* o 200px, lo que se vea bien */
+    width: auto; /* para mantener proporción */
 }
+
 
 nav ul {
     display: flex;
@@ -1324,3 +1324,4 @@ footer {
         height: 60px;
     }
 }
+

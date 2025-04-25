@@ -5,20 +5,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LinoKappe - {% block title %}{% endblock %}</title>
-    <link rel="stylesheet" href="{% static "css/styles.css" %}">
+    <link rel="stylesheet" href="{% static "css/style2.css" %}">
     {% block extra_css %}{% endblock %}
 </head>
 <body>
     <header>
         <div class="container nav-container">
             <div class="logo">
-                Lino<span>Kappe</span>
+                <a href="{% url 'inicio' %}">
+                    <img src="{% static 'images/logo2.jpeg' %}" alt="Lino Kappe Logo" style="height: 40px;">
+                </a>
             </div>
             <nav>
                 <ul>
                     <li><a href="{% url 'inicio' %}">Inicio</a></li>
-                    <li><a href="#">Productos</a></li>
-                    <li><a href="#">Contacto</a></li>
+                    <li><a href="{% url 'coleccion' %}">Productos</a></li>
+           
                 </ul>
             </nav>
         </div>
@@ -33,7 +35,7 @@
             <div class="hero-content">
                 <h1>Estilo y Personalidad en cada Gorra</h1>
                 <p>Descubre nuestra exclusiva colección de gorras premium diseñadas para complementar tu estilo único y destacar en cualquier ocasión.</p>
-                <a href="#" class="btn">Ver Colección</a>
+                <a href="{% url 'coleccion' %}" class="btn">Ver Colección</a>
             </div>
         </div>
     </section>
@@ -52,13 +54,13 @@
                 <h3>Enlaces</h3>
                 <ul>
                     <li><a href="{% url 'inicio' %}">Inicio</a></li>
-                    <li><a href="#">Productos</a></li>
-                    <li><a href="#">Contacto</a></li>
+                    <li><a href="{% url 'coleccion' %}">Productos</a></li>
+                   
                 </ul>
             </div>
             <div class="footer-column">
                 <h3>Contacto</h3>
-                <p>info@linokappe.com</p>
+                <p>linokappe2024@outlook.com</p>
                 <div class="social-icons">
                     <a href="#"><i class="fab fa-facebook-f"></i></a>
                     <a href="#"><i class="fab fa-instagram"></i></a>

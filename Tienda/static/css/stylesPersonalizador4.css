@@ -233,6 +233,8 @@
     font-size: 12px;
     font-weight: bold;
 }
+
+
 /* Estilos para el fondo del modal */
 .modal {
     position: fixed;
@@ -242,7 +244,6 @@
     width: 100vw;
     height: 100vh;
     overflow: auto;
-    background-color: rgba(0, 0, 0, 0.5); /* fondo oscuro */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -256,8 +257,9 @@
     width: 100%;
     max-width: 500px;
     box-shadow: 0 0 15px rgba(0,0,0,0.3);
-    position: relative;
+    /* Elimina 'position: center;' */
 }
+
 
 .close-btn {
     position: absolute;
@@ -268,7 +270,7 @@
 }
 /* Estilos para el formulario del modal */
 #pedido-form {
-    display: flex;
+    
     flex-direction: column;
     gap: 15px;
 }
@@ -276,7 +278,7 @@
 #pedido-form label {
     font-weight: bold;
     color: #333;
-    margin-bottom: 5px;
+    margin-bottom: 50px;
     display: block;
 }
 

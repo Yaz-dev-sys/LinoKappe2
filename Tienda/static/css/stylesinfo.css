@@ -1,0 +1,92 @@
+:root {
+    --primary-color: #cc0000;
+    --secondary-color: #0a1155;
+    --accent-color: #ffffff;
+    --text-light: #ffffff;
+    --text-dark: #0a1155;
+    --text-gray: #a1a0a0;
+    --radius-xl: 1.5rem;
+}
+
+/* General reset */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: var(--accent-color);
+    color: var(--text-dark);
+}
+
+/* Sección principal */
+.featured {
+    padding: 4rem 2rem;
+    background: linear-gradient(to bottom, var(--accent-color), #f7f7f7);
+}
+
+/* Títulos */
+.section-title h2 {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    text-align: center;
+    position: relative;
+}
+
+.section-title h2::after {
+    content: "";
+    display: block;
+    width: 80px;
+    height: 4px;
+    margin: 0.5rem auto;
+    background-color: var(--secondary-color);
+    border-radius: 2px;
+}
+
+.brand-description {
+    font-size: 1.1rem;
+    color: var(--text-gray);
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto 1.5rem;
+}
+
+.brand-motto {
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: var(--secondary-color);
+}
+
+/* Presentación de marca */
+.brand-presentation,
+.brand-welcome {
+    background-color: var(--secondary-color);
+    color: var(--text-light);
+    padding: 2rem;
+    margin: 2rem auto;
+    border-radius: var(--radius-xl);
+    max-width: 900px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.brand-presentation h3,
+.brand-welcome h3 {
+    font-size: 1.8rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+    .section-title h2 {
+        font-size: 2rem;
+    }
+
+    .brand-presentation,
+    .brand-welcome {
+        padding: 1.5rem;
+    }
+
+    .brand-description {
+        font-size: 1rem;
+    }
+}

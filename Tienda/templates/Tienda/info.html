@@ -1,0 +1,45 @@
+{% extends 'Tienda/base.html' %}
+{% load static %}
+
+{% block title %}Catálogo de Gorras Lino-Kappe{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/stylesinfo.css' %}">
+{% endblock %}
+
+
+{% block content %}
+<section class="featured">
+    <div class="section-title">
+        <h2>Adéntrate en nuestra colección</h2>
+        <p class="brand-description">
+            Ofrecemos gorras de alta calidad en una variedad de estilos y colores. Para tener éxito, 
+            nuestro objetivo es que cada cliente encuentre la gorra perfecta.
+        </p>
+        <p class="brand-motto">Comienza con el estilo – descubre lo que buscas y llévatelo.</p>
+    </div>
+    
+    <div class="brand-presentation">
+        <h3>LINO-KAPPE</h3>
+        <p>
+            Lino-Kappe es una marca inspirada en colores deportivos de acuerdo a los conceptos de la 
+            línea estratégica de la empresa "Lino-Kappe". El nombre de la Marca surge como un lenguaje 
+            visual creativo y auténtico unido de una palabra germánica, complementando un logotipo híbrido.
+        </p>
+    </div>
+    
+    <div class="brand-welcome">
+        <h3>Te damos la bienvenida a un mundo de moda</h3>
+        <p>
+            Nuestras gorras no son solo un accesorio, son una declaración de estilo y personalidad. 
+            Diseñadas con materiales de alta calidad, brindan comodidad y durabilidad para cualquier ocasión. 
+            Ya sea que busques un look urbano, deportivo o casual, tenemos el modelo perfecto para ti. 
+            ¡Protege tu estilo y marca la diferencia con nuestras gorras exclusivas!
+        </p>
+    </div>
+    
+
+</section>
+
+
+{% endblock %}

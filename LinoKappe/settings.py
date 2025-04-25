@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 import os  # Añade esta línea al principio del archivo
 from pathlib import Path
+import ssl
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -144,8 +145,32 @@ STORAGES = {
     },
 }
 
-ALLOWED_HOSTS =['Localhost','linokappe-production.up.railway.app']
+ALLOWED_HOSTS =['127.0.0.1','Localhost','linokappe-production.up.railway.app']
 
 
 CSRF_TRUSTED_ORIGINS = ['http://*','https://linokappe-production.up.railway.app']
 
+# Configuración de almacenamiento para Django 5+
+STORAGES = {
+    "default": {  # Para archivos subidos (MEDIA)
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
+    "staticfiles": {  # Para archivos estáticos
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587  # Puerto para TLS
+EMAIL_USE_TLS = True  # Usar TLS (no SSL)
+EMAIL_HOST_USER = 'lemonangelo482@gmail.com'
+EMAIL_HOST_PASSWORD = 'jmmy kgqm ingh qsek'
+DEFAULT_FROM_EMAIL = 'lemonangelo482@gmail.com'
+
+# Añade estas dos líneas:
+EMAIL_SSL_CERTFILE = None
+EMAIL_SSL_KEYFILE = None
+
+ssl._create_default_https_context = ssl._create_unverified_context
