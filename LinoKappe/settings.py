@@ -159,19 +159,19 @@ STORAGES = {
         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
     },
 }
+ 
 
-
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587  # Puerto para TLS
-EMAIL_USE_TLS = True   # SOLO ESTO
-EMAIL_USE_SSL = False  # MUY IMPORTANTE que sea False
-EMAIL_HOST_USER = 'lemonangelo482@gmail.com'
-EMAIL_HOST_PASSWORD = 'jmmy kgqm ingh qsek'
-DEFAULT_FROM_EMAIL = 'lemonangelo482@gmail.com'
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_PORT = 587  # Puerto para TLS
+# EMAIL_USE_TLS = True   # SOLO ESTO
+# EMAIL_USE_SSL = False  # MUY IMPORTANTE que sea False
+# EMAIL_HOST_USER = 'lemonangelo482@gmail.com'
+# EMAIL_HOST_PASSWORD = 'jmmy kgqm ingh qsek'
+# DEFAULT_FROM_EMAIL = 'lemonangelo482@gmail.com'
 
 # Añade estas dos líneas:
-EMAIL_SSL_CERTFILE = None
-EMAIL_SSL_KEYFILE = None
+# EMAIL_SSL_CERTFILE = None
+# EMAIL_SSL_KEYFILE = None
 
-ssl._create_default_https_context = ssl._create_unverified_context
+# ssl._create_default_https_context = ssl._create_unverified_context

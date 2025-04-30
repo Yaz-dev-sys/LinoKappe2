@@ -12,4 +12,11 @@ class GorraForm(forms.ModelForm):
 class PedidoForm(forms.ModelForm):
     class Meta:
         model = Pedido
-        fields = ['gorra_id','email', 'nombre', 'cantidad', 'foto1', 'foto2', 'foto3', 'foto4', 'foto5']
+        fields = ['gorra_id','email', 'nombre', 'cantidad', 'foto1', 'foto2', 'foto3', 'foto4', 'foto5',  'logo_original']
+
+        def __init__(self, *args, **kwargs):
+            super().__init__(*args, **kwargs)
+            # Hacer los campos de imagen no obligatorios
+            for i in range(1, 6):
+                self.fields[f'foto{i}'].required = False
+                self.fields['logo_original'].required = False

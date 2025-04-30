@@ -46,6 +46,8 @@ class Pedido(models.Model):
     foto3 = models.ImageField(upload_to='pedidos/', null=True, blank=True)
     foto4 = models.ImageField(upload_to='pedidos/', null=True, blank=True)
     foto5 = models.ImageField(upload_to='pedidos/', null=True, blank=True)
+     # Nuevo campo para el logo original
+    logo_original = models.ImageField(upload_to='logos/', null=True, blank=True)
     estado = models.CharField(max_length=1, choices=ESTADOS, default='P')
     fecha_pedido = models.DateTimeField(auto_now_add=True)
 

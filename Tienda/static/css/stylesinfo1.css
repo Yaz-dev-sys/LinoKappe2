@@ -1,0 +1,248 @@
+:root {
+    --primary-color: #cc0000;
+    --secondary-color: #0a1155;
+    --accent-color: #ffffff;
+    --text-light: #ffffff;
+    --text-dark: #0a1155;
+    --text-gray: #666666;
+    --radius-xl: 1.5rem;
+    --shadow-soft: 0 10px 30px rgba(10, 17, 85, 0.15);
+    --shadow-strong: 0 15px 35px rgba(204, 0, 0, 0.2);
+    --transition-smooth: all 0.4s ease-in-out;
+}
+
+/* General reset y estilos base */
+body {
+    margin: 0;
+    font-family: 'Montserrat', 'Segoe UI', sans-serif;
+    background-color: var(--accent-color);
+    color: var(--text-dark);
+    line-height: 1.7;
+}
+
+/* Sección principal con animación de entrada */
+.featured {
+    padding: 6rem 2rem;
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    position: relative;
+    overflow: hidden;
+    animation: fadeIn 1s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Pattern background */
+.featured::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23cc0000' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    opacity: 0.6;
+    z-index: 0;
+}
+
+.featured > * {
+    position: relative;
+    z-index: 1;
+}
+
+/* Títulos con animación y estilo moderno */
+.section-title {
+    margin-bottom: 4rem;
+}
+
+.section-title h2 {
+    font-size: 3.2rem;
+    font-weight: 800;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    text-align: center;
+    position: relative;
+    letter-spacing: -0.5px;
+    text-shadow: 2px 2px 3px rgba(0,0,0,0.1);
+}
+
+.section-title h2::after {
+    content: "";
+    display: block;
+    width: 120px;
+    height: 6px;
+    margin: 0.8rem auto;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    border-radius: 3px;
+    animation: expandWidth 1.5s ease-out;
+}
+
+@keyframes expandWidth {
+    from { width: 20px; opacity: 0; }
+    to { width: 120px; opacity: 1; }
+}
+
+.brand-description {
+    font-size: 1.25rem;
+    color: var(--text-gray);
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 2rem;
+    font-weight: 400;
+    animation: slideUp 1s ease-out 0.3s both;
+}
+
+.brand-motto {
+    text-align: center;
+    font-weight: 700;
+    font-size: 1.4rem;
+    color: var(--secondary-color);
+    margin: 2rem auto;
+    padding: 1rem 2rem;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-soft);
+    max-width: 750px;
+    transform: translateZ(0);
+    transition: var(--transition-smooth);
+    animation: slideUp 1s ease-out 0.6s both;
+}
+
+.brand-motto:hover {
+    box-shadow: var(--shadow-strong);
+    transform: translateY(-5px);
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Presentación de marca con efecto de vidrio */
+.brand-presentation,
+.brand-welcome {
+    background: linear-gradient(135deg, var(--secondary-color), #13195f);
+    color: var(--text-light);
+    padding: 3rem;
+    margin: 3rem auto;
+    border-radius: var(--radius-xl);
+    max-width: 900px;
+    box-shadow: var(--shadow-strong);
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    animation: slideIn 1s ease-out;
+}
+
+.brand-presentation::before,
+.brand-welcome::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at bottom right, rgba(255, 255, 255, 0.1), transparent 70%);
+    z-index: 0;
+}
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateX(-50px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+.brand-presentation h3,
+.brand-welcome h3 {
+    font-size: 2.2rem;
+    color: var(--accent-color);
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+    position: relative;
+    z-index: 1;
+}
+
+.brand-presentation h3 {
+    color: var(--primary-color);
+    font-size: 2.6rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.brand-presentation p,
+.brand-welcome p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    position: relative;
+    z-index: 1;
+}
+
+/* Efecto hover para las secciones */
+.brand-presentation:hover,
+.brand-welcome:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(10, 17, 85, 0.25);
+}
+
+.brand-presentation,
+.brand-welcome {
+    transition: var(--transition-smooth);
+}
+
+/* Responsive tweaks con mejoras de diseño */
+@media (max-width: 992px) {
+    .section-title h2 {
+        font-size: 2.6rem;
+    }
+    
+    .brand-motto {
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .featured {
+        padding: 4rem 1.5rem;
+    }
+    
+    .section-title h2 {
+        font-size: 2.2rem;
+    }
+
+    .brand-presentation,
+    .brand-welcome {
+        padding: 2rem;
+        margin: 2rem auto;
+    }
+
+    .brand-description {
+        font-size: 1.1rem;
+    }
+    
+    .brand-presentation h3,
+    .brand-welcome h3 {
+        font-size: 1.8rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .section-title h2 {
+        font-size: 1.8rem;
+    }
+    
+    .brand-motto {
+        font-size: 1.1rem;
+        padding: 1rem;
+    }
+    
+    .brand-presentation h3 {
+        font-size: 1.6rem;
+    }
+    
+    .featured {
+        padding: 3rem 1rem;
+    }
+}

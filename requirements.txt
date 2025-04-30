@@ -1,10 +1,10 @@
 altgraph==0.17.4
 annotated-types==0.6.0
 anyio==4.8.0
-asgiref==3.4.1
+asgiref==3.8.1
 Babel==2.14.0
 blinker==1.7.0
-certifi==2023.11.17
+certifi==2025.1.31
 cffi==1.16.0
 charset-normalizer==3.3.2
 click==8.1.7
@@ -13,7 +13,7 @@ coreschema==0.0.4
 cryptography==42.0.5
 distlib==0.3.7
 distro==1.9.0
-Django==4.0.1
+Django==5.2
 django-cpf-cnpj==1.0.0
 django-extensions==3.1.5
 django-widget-tweaks==1.4.9
@@ -55,12 +55,13 @@ pyinstaller-hooks-contrib==2024.9
 PyMySQL==1.1.0
 pyOpenSSL==24.1.0
 pypng==0.20220715.0
-python-dotenv==1.0.1
+python-dotenv==1.1.0
 pytz==2023.3.post1
 PyYAML==6.0.2
 qrcode==7.4.2
 regex==2024.11.6
 requests==2.31.0
+resend==2.8.0
 safetensors==0.5.3
 setuptools==75.8.0
 sniffio==1.3.1

@@ -352,7 +352,16 @@ document.addEventListener('DOMContentLoaded', function() {
             // Limpiar cualquier input de archivo existente primero
             document.querySelectorAll('input[id^="foto"][type="file"]').forEach(el => el.remove());
             document.querySelectorAll('input[id^="foto"][type="hidden"]').forEach(el => el.remove());
+            document.querySelectorAll('input[id="logo-original"][type="file"]').forEach(el => el.remove());
             
+            // Guardar el logo original si existe
+            const activeView = state.currentView;
+            const viewState = getViewState(activeView);
+            if (viewState.isVisible && viewState.logoUrl) {
+                createOriginalLogoInput(viewState.logoUrl);
+            }
+            
+            // Guardar las vistas personalizadas
             for (let i = 0; i < Math.min(views.length, 5); i++) {
                 const viewUrl = views[i];
                 const viewState = getViewState(viewUrl);
@@ -363,7 +372,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
             
-            // Reemplazado alert tradicional por SweetAlert2
             Swal.fire({
                 title: '¡Listo!',
                 text: '¡Imágenes preparadas con éxito!',
@@ -372,7 +380,6 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         } catch (error) {
             console.error('Error al preparar las imágenes:', error);
-            // Reemplazado alert tradicional por SweetAlert2
             Swal.fire({
                 title: 'Error',
                 text: `Error al preparar imágenes: ${error.message}`,
@@ -381,7 +388,36 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
     }
+    
+    function createOriginalLogoInput(logoDataUrl) {
+        const blob = dataURLtoBlob(logoDataUrl);
+        const fileName = `logo_original.png`;
+        const fileObj = new File([blob], fileName, {type: 'image/png'});
+        
+        let dataTransfer = new DataTransfer();
+        dataTransfer.items.add(fileObj);
+        
+        // Crear input para el logo original
+        const fileInput = document.createElement('input');
+        fileInput.type = 'file';
+        fileInput.id = 'logo-original';
+        fileInput.name = 'logo_original';
+        fileInput.style.display = 'none';
+        DOM.pedidoForm.appendChild(fileInput);
+        
+        // Establecer la propiedad files
+        fileInput.files = dataTransfer.files;
+        
+        // Añadir un input oculto para rastrear que tenemos el logo
+        const hiddenInput = document.createElement('input');
+        hiddenInput.type = 'hidden';
+        hiddenInput.id = 'logo-original-input';
+        hiddenInput.name = 'logo_original_data';
+        hiddenInput.value = '1'; // Marcador de que tenemos el logo
+        DOM.pedidoForm.appendChild(hiddenInput);
+    }
 
+    
     function getAvailableViews() {
         const views = [DOM.mainImage.src];
         document.querySelectorAll('.thumbnail:not(.active) img').forEach(img => {
