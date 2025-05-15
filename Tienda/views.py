@@ -106,8 +106,6 @@ def enviar_correo(request):
 logger = logging.getLogger(__name__)
 
 
-
-
 @csrf_exempt
 def crear_pedido(request):
     if request.method == 'POST':
@@ -151,39 +149,37 @@ def crear_pedido(request):
                 # Guardar el pedido
                 pedido = form.save()
                 
-    
-                    # Enviar correo con los datos del pedido
+                # Enviar correo con los datos del pedido
                 try:
-                        # Obtener todos los campos del pedido como diccionario
-                        datos_pedido = {
-                            'ID': pedido.id,
-                            'Nombre': pedido.nombre,
-                            'Email': pedido.email,
-                            
-                        }
-                        
-                        # Añadir los demás campos del modelo Pedido
-                        # Aquí debes incluir todos los campos de tu modelo Pedido
-                        # Por ejemplo (ajusta según tu modelo):
-                        if hasattr(pedido, 'direccion'):
-                            datos_pedido['Dirección'] = pedido.direccion
-                        if hasattr(pedido, 'producto'):
-                            datos_pedido['Producto'] = pedido.producto
-                        if hasattr(pedido, 'cantidad'):
-                            datos_pedido['Cantidad'] = pedido.cantidad
-                        if hasattr(pedido, 'fecha_pedido'):
-                            datos_pedido['Fecha de pedido'] = pedido.fecha_pedido
-                        
-                        # Crear HTML para el correo
-                        filas_html = ""
-                        for campo, valor in datos_pedido.items():
-                            filas_html += f"""
-                            <tr>
-                                <td style="padding: 10px; border-bottom: 1px solid #ddd; font-weight: bold;">{campo}</td>
-                                <td style="padding: 10px; border-bottom: 1px solid #ddd;">{valor}</td>
-                            </tr>
-                            """
-                        
+                    # Obtener todos los campos del pedido como diccionario
+                    datos_pedido = {
+                        'ID': pedido.id,
+                        'Nombre': pedido.nombre,
+                        'Email': pedido.email,
+                        'Cantidad': pedido.cantidad,
+                        'Talla': pedido.get_talla_display() if pedido.talla else 'No especificada',
+                        'Visera': pedido.get_visera_display() if pedido.visera else 'No especificada',
+                        'Color': pedido.color if pedido.color else 'No especificado',
+                    }
+                    
+                    # Añadir los demás campos del modelo Pedido si son necesarios
+                    if hasattr(pedido, 'direccion'):
+                        datos_pedido['Dirección'] = pedido.direccion
+                    if hasattr(pedido, 'producto'):
+                        datos_pedido['Producto'] = pedido.producto
+                    if hasattr(pedido, 'fecha_pedido'):
+                        datos_pedido['Fecha de pedido'] = pedido.fecha_pedido
+                    
+                    # Crear HTML para el correo
+                    filas_html = ""
+                    for campo, valor in datos_pedido.items():
+                        filas_html += f"""
+                        <tr>
+                            <td style="padding: 10px; border-bottom: 1px solid #ddd; font-weight: bold;">{campo}</td>
+                            <td style="padding: 10px; border-bottom: 1px solid #ddd;">{valor}</td>
+                        </tr>
+                        """
+                    
                         # Enviar correo con Resend
                         params = {
                             "from": "Pedidos <onboarding@resend.dev>",
@@ -213,9 +209,10 @@ def crear_pedido(request):
                         resend.Emails.send(params)
                         logger.info(f"Correo enviado para pedido #{pedido.id}")
                         
+                    
                 except Exception as e:
-                        logger.error(f"Error al enviar correo: {str(e)}")
-                        # No detenemos el proceso si falla el envío de correo
+                    logger.error(f"Error al enviar correo: {str(e)}")
+                    # No detenemos el proceso si falla el envío de correo
                 
                 return JsonResponse({
                     'success': True,
@@ -242,5 +239,4 @@ def crear_pedido(request):
         'success': False,
         'message': 'Método no permitido'
     }, status=405)
-
 

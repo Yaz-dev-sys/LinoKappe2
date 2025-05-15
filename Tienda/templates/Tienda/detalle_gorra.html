@@ -46,7 +46,7 @@
             <div class="product-detail-info">
                 <h1>{{ gorra.nombre }}</h1>
                 <div class="price">${{ gorra.precio }}</div>
-                
+                <!--
                 <div class="stock-info">
                     {% if gorra.stock > 0 %}
                         <span class="in-stock">En stock ({{ gorra.stock }} unidades)</span>
@@ -54,7 +54,7 @@
                         <span class="out-of-stock">Agotado</span>
                     {% endif %}
                 </div>
-                
+                -->
                 <div class="description">
                     <h3>Descripción</h3>
                     <p>{{ gorra.descripcion }}</p>
@@ -69,7 +69,7 @@
                             <button type="button" class="quantity-btn increase" id="increase-quantity">+</button>
                         </div>
                     </div>
-                    <button class="btn" id="add-to-cart-btn">Añadir al carrito</button>
+                    <button class="btn" id="add-to-cart-btn">Hacer Pedido</button>
                 </div>
             </div>
         </div>
@@ -109,6 +109,27 @@
           <label for="cantidad">Cantidad:</label>
           <input type="number" name="cantidad" min="1" required>
           
+                <!-- Nuevos campos -->
+          <label for="talla">Talla:</label>
+            <select name="talla" required>
+                <option value="">Seleccione una talla</option>
+                <option value="S">Small</option>
+                <option value="M">Medium</option>
+                <option value="L">Large</option>
+                <option value="XL">Extra Large</option>
+                <option value="XXL">Double Extra Large</option>
+            </select>
+    
+          <label for="visera">Visera:</label>
+            <select name="visera" required>
+                <option value="">Seleccione tipo de visera</option>
+                <option value="PLANA">Plana</option>
+                <option value="CURVA">Curva</option>
+            </select>
+    
+    <label for="color">Color:</label>
+    <input type="text" name="color" required>
+
           <input type="hidden" name="foto1" id="foto1-input">
           <input type="hidden" name="foto2" id="foto2-input">
           <input type="hidden" name="foto3" id="foto3-input">

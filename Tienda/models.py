@@ -35,21 +35,39 @@ class Pedido(models.Model):
         ('C', 'Completado'),
         ('X', 'Cancelado'),
     ]
-    gorra_id = models.ForeignKey(Gorra, on_delete=models.CASCADE, related_name='pedidos', null=True, blank=True)  # Llave foránea a Gorra
-
     
+    # Opciones para los nuevos campos
+    TALLAS = [
+        ('S', 'Small'),
+        ('M', 'Medium'),
+        ('L', 'Large'),
+        ('XL', 'Extra Large'),
+        ('XXL', 'Double Extra Large'),
+    ]
+    
+    TIPOS_VISERA = [
+        ('PLANA', 'Plana'),
+        ('CURVA', 'Curva'),
+    ]
+    
+    gorra_id = models.ForeignKey(Gorra, on_delete=models.CASCADE, related_name='pedidos', null=True, blank=True)
     email = models.CharField(max_length=100, null=True, blank=True)
     nombre = models.CharField(max_length=255, null=True, blank=True)
     cantidad = models.PositiveIntegerField(null=True, blank=True)
-    foto1 = models.ImageField(upload_to='pedidos/', default='pedidos/default.jpg')  # Definir un valor predeterminado
+    
+    # Nuevos campos
+    talla = models.CharField(max_length=3, choices=TALLAS, null=True, blank=True)
+    visera = models.CharField(max_length=5, choices=TIPOS_VISERA, null=True, blank=True)
+    color = models.CharField(max_length=50, null=True, blank=True)
+    
+    foto1 = models.ImageField(upload_to='pedidos/', default='pedidos/default.jpg')
     foto2 = models.ImageField(upload_to='pedidos/', null=True, blank=True)
     foto3 = models.ImageField(upload_to='pedidos/', null=True, blank=True)
     foto4 = models.ImageField(upload_to='pedidos/', null=True, blank=True)
     foto5 = models.ImageField(upload_to='pedidos/', null=True, blank=True)
-     # Nuevo campo para el logo original
     logo_original = models.ImageField(upload_to='logos/', null=True, blank=True)
     estado = models.CharField(max_length=1, choices=ESTADOS, default='P')
     fecha_pedido = models.DateTimeField(auto_now_add=True)
-
+    
     def __str__(self):
         return f"Pedido #{self.id} - {self.nombre}"
