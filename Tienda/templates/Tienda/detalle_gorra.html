@@ -1,151 +1,395 @@
-    {% extends 'Tienda/base.html' %}
-    {% load static %}
+{% extends 'Tienda/base.html' %}
+{% load static %}
 
-    {% block title %}{{ gorra.nombre }}{% endblock %}
+{% block title %}{{ gorra.nombre }}{% endblock %}
 
-    {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'css/stylesPersonalizador4.css' %}">
-    <!-- SweetAlert2 CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/stylesPersonalizador5.css' %}">
+<!-- SweetAlert2 CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 <!-- SweetAlert2 JS -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    {% endblock %}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    {% block content %}
-    <section class="product-detail">
-        <div class="product-detail-container">
-            <div class="product-detail-image">
-                <img id="main-image" src="{{ gorra.imagen.url }}" alt="{{ gorra.nombre }}">
-                
-                <div class="thumbnail-container">
-                    <div class="thumbnail active" onclick="changeImage('{{ gorra.imagen.url }}', this)">
-                        <img src="{{ gorra.imagen.url }}" alt="{{ gorra.nombre }} - Principal">
-                    </div>
-                    {% if gorra.imagen2 %}
-                    <div class="thumbnail" onclick="changeImage('{{ gorra.imagen2.url }}', this)">
-                        <img src="{{ gorra.imagen2.url }}" alt="{{ gorra.nombre }} - Vista 2">
-                    </div>
-                    {% endif %}
-                    {% if gorra.imagen3 %}
-                    <div class="thumbnail" onclick="changeImage('{{ gorra.imagen3.url }}', this)">
-                        <img src="{{ gorra.imagen3.url }}" alt="{{ gorra.nombre }} - Vista 3">
-                    </div>
-                    {% endif %}
-                    {% if gorra.imagen4 %}
-                    <div class="thumbnail" onclick="changeImage('{{ gorra.imagen4.url }}', this)">
-                        <img src="{{ gorra.imagen4.url }}" alt="{{ gorra.nombre }} - Vista 4">
-                    </div>
-                    {% endif %}
-                    {% if gorra.imagen5 %}
-                    <div class="thumbnail" onclick="changeImage('{{ gorra.imagen5.url }}', this)">
-                        <img src="{{ gorra.imagen5.url }}" alt="{{ gorra.nombre }} - Vista 5">
-                    </div>
-                    {% endif %}
-                </div>
-            </div>
-            <div class="product-detail-info">
-                <h1>{{ gorra.nombre }}</h1>
-                <div class="price">${{ gorra.precio }}</div>
-                <!--
-                <div class="stock-info">
-                    {% if gorra.stock > 0 %}
-                        <span class="in-stock">En stock ({{ gorra.stock }} unidades)</span>
-                    {% else %}
-                        <span class="out-of-stock">Agotado</span>
-                    {% endif %}
-                </div>
-                -->
-                <div class="description">
-                    <h3>Descripción</h3>
-                    <p>{{ gorra.descripcion }}</p>
-                </div>
-                
-                <div class="product-actions">
-                    <div class="quantity-selector">
-                        <label for="quantity">Cantidad:</label>
-                        <div class="quantity-controls">
-                            <button type="button" class="quantity-btn decrease" id="decrease-quantity">-</button>
-                            <input type="number" id="quantity" name="quantity" min="1" max="{{ gorra.stock }}" value="1">
-                            <button type="button" class="quantity-btn increase" id="increase-quantity">+</button>
-                        </div>
-                    </div>
-                    <button class="btn" id="add-to-cart-btn">Hacer Pedido</button>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Personalizador de Gorras -->
-        <div class="personalizer-container">
-            <h2 class="personalizer-title">Personaliza tu gorra</h2>
-            <div class="hat-canvas-container">
-                <img id="hat-canvas" src="{{ gorra.imagen.url }}" alt="Gorra para personalizar">
-                <img id="logo-preview" src="" alt="Logo personalizado">
-            </div>
-            <div class="personalizer-controls">
-                <input type="file" id="logo-upload" class="file-input" accept="image/*">
-                <button id="upload-btn" class="upload-btn">Agregar logo</button>
-                <button id="apply-btn" class="apply-btn" disabled>Aplicar cambios y Comprar</button>
-                <button id="reset-btn" class="reset-btn">Reiniciar</button>
-            </div>
-            <p>Haz clic en la gorra para posicionar tu logo donde desees.</p>
+<style>
+/* Estilos para los selectores personalizados */
+.custom-selector {
+    margin-bottom: 20px;
+}
+
+.custom-selector h4 {
+    margin-bottom: 10px;
+    font-weight: 600;
+    color: #333;
+}
+
+.selector-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.option-button {
+    padding: 10px 15px;
+    border: 2px solid #ddd;
+    background: #fff;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    min-width: 60px;
+    text-align: center;
+}
+
+.option-button:hover {
+    border-color: #007bff;
+    background: #f8f9fa;
+}
+
+.option-button.selected {
+    border-color: #007bff;
+    background: #007bff;
+    color: white;
+}
+
+.color-input-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.color-preview {
+    width: 40px;
+    height: 40px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+}
+
+.color-input {
+    padding: 8px 12px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    flex: 1;
+}
+
+.color-input:focus {
+    outline: none;
+    border-color: #007bff;
+}
+
+.color-palette {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.color-option {
+    width: 40px;
+    height: 40px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.color-option:hover {
+    transform: scale(1.1);
+    border-color: #007bff;
+    box-shadow: 0 2px 8px rgba(0,123,255,0.3);
+}
+
+.color-option.selected {
+    border-color: #007bff;
+    border-width: 3px;
+    transform: scale(1.05);
+}
+
+.color-option.selected::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+}
+
+#color-name {
+    font-weight: 500;
+    color: #333;
+    min-width: 80px;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="product-detail">
+    <div class="product-detail-container">
+        <div class="product-detail-image">
+            <img id="main-image" src="{{ gorra.imagen.url }}" alt="{{ gorra.nombre }}">
             
-
+            <div class="thumbnail-container">
+                <div class="thumbnail active" onclick="changeImage('{{ gorra.imagen.url }}', this)">
+                    <img src="{{ gorra.imagen.url }}" alt="{{ gorra.nombre }} - Principal">
+                </div>
+                {% if gorra.imagen2 %}
+                <div class="thumbnail" onclick="changeImage('{{ gorra.imagen2.url }}', this)">
+                    <img src="{{ gorra.imagen2.url }}" alt="{{ gorra.nombre }} - Vista 2">
+                </div>
+                {% endif %}
+                {% if gorra.imagen3 %}
+                <div class="thumbnail" onclick="changeImage('{{ gorra.imagen3.url }}', this)">
+                    <img src="{{ gorra.imagen3.url }}" alt="{{ gorra.nombre }} - Vista 3">
+                </div>
+                {% endif %}
+                {% if gorra.imagen4 %}
+                <div class="thumbnail" onclick="changeImage('{{ gorra.imagen4.url }}', this)">
+                    <img src="{{ gorra.imagen4.url }}" alt="{{ gorra.nombre }} - Vista 4">
+                </div>
+                {% endif %}
+                {% if gorra.imagen5 %}
+                <div class="thumbnail" onclick="changeImage('{{ gorra.imagen5.url }}', this)">
+                    <img src="{{ gorra.imagen5.url }}" alt="{{ gorra.nombre }} - Vista 5">
+                </div>
+                {% endif %}
+            </div>
         </div>
+        <div class="product-detail-info">
+            <h1>{{ gorra.nombre }}</h1>
+            <div class="price">${{ gorra.precio }}</div>
+            
+            <div class="description">
+                <h3>Descripción</h3>
+                <p>{{ gorra.descripcion }}</p>
+            </div>
+            
+            <div class="product-actions">
+                <div class="quantity-selector">
+                    <label for="quantity">Cantidad:</label>
+                    <div class="quantity-controls">
+                        <button type="button" class="quantity-btn decrease" id="decrease-quantity">-</button>
+                        <input type="number" id="quantity" name="quantity" min="1" max="{{ gorra.stock }}" value="1">
+                        <button type="button" class="quantity-btn increase" id="increase-quantity">+</button>
+                    </div>
+                </div>
 
-        <!-- Modal de Pedido -->
-<div id="pedido-modal" class="modal" style="display:none;">
-    <div class="modal-content">
-      <span class="close-btn">&times;</span>
-      <h2>Finalizar Pedido</h2>
-      <form id="pedido-form" enctype="multipart/form-data">
-          {% csrf_token %}
-          <label for="nombre">Nombre:</label>
-          <input type="hidden" name="gorra_id" id="gorra-id-field">
-          <input type="text" name="nombre" required>
-          
-          <label for="email">Correo electrónico:</label>
-          <input type="email" name="email" required>
-          
-          <label for="cantidad">Cantidad:</label>
-          <input type="number" name="cantidad" min="1" required>
-          
-                <!-- Nuevos campos -->
-          <label for="talla">Talla:</label>
-            <select name="talla" required>
-                <option value="">Seleccione una talla</option>
-                <option value="S">Small</option>
-                <option value="M">Medium</option>
-                <option value="L">Large</option>
-                <option value="XL">Extra Large</option>
-                <option value="XXL">Double Extra Large</option>
-            </select>
-    
-          <label for="visera">Visera:</label>
-            <select name="visera" required>
-                <option value="">Seleccione tipo de visera</option>
-                <option value="PLANA">Plana</option>
-                <option value="CURVA">Curva</option>
-            </select>
-    
-    <label for="color">Color:</label>
-    <input type="text" name="color" required>
+                <!-- Selector de Talla -->
+                <div class="custom-selector">
+                    <h4>Talla:</h4>
+                    <div class="selector-options">
+                        <div class="option-button" data-value="S" onclick="selectOption('talla', 'S', this)">S</div>
+                        <div class="option-button" data-value="M" onclick="selectOption('talla', 'M', this)">M</div>
+                        <div class="option-button" data-value="L" onclick="selectOption('talla', 'L', this)">L</div>
+                        <div class="option-button" data-value="XL" onclick="selectOption('talla', 'XL', this)">XL</div>
+                        <div class="option-button" data-value="XXL" onclick="selectOption('talla', 'XXL', this)">XXL</div>
+                    </div>
+                </div>
 
-          <input type="hidden" name="foto1" id="foto1-input">
-          <input type="hidden" name="foto2" id="foto2-input">
-          <input type="hidden" name="foto3" id="foto3-input">
-          <input type="hidden" name="foto4" id="foto4-input">
-          <input type="hidden" name="foto5" id="foto5-input">
-          
-          
-          <button type="submit" class="submit-btn">Confirmar Pedido</button>
-      </form>
+                <!-- Selector de Visera -->
+                <div class="custom-selector">
+                    <h4>Visera:</h4>
+                    <div class="selector-options">
+                        <div class="option-button" data-value="PLANA" onclick="selectOption('visera', 'PLANA', this)">Plana</div>
+                        <div class="option-button" data-value="CURVA" onclick="selectOption('visera', 'CURVA', this)">Curva</div>
+                    </div>
+                </div>
+
+                <!-- Selector de Color -->
+                <div class="custom-selector">
+                    <h4>Color:</h4>
+                    <div class="color-palette">
+                        <div class="color-option" style="background-color: #000000;" data-color="Negro" onclick="selectColor('#000000', 'Negro', this)"></div>
+                        <div class="color-option" style="background-color: #FFFFFF;" data-color="Blanco" onclick="selectColor('#FFFFFF', 'Blanco', this)"></div>
+                        <div class="color-option" style="background-color: #FF0000;" data-color="Rojo" onclick="selectColor('#FF0000', 'Rojo', this)"></div>
+                        <div class="color-option" style="background-color: #0000FF;" data-color="Azul" onclick="selectColor('#0000FF', 'Azul', this)"></div>
+                        <div class="color-option" style="background-color: #008000;" data-color="Verde" onclick="selectColor('#008000', 'Verde', this)"></div>
+                        <div class="color-option" style="background-color: #FFFF00;" data-color="Amarillo" onclick="selectColor('#FFFF00', 'Amarillo', this)"></div>
+                        <div class="color-option" style="background-color: #FFA500;" data-color="Naranja" onclick="selectColor('#FFA500', 'Naranja', this)"></div>
+                        <div class="color-option" style="background-color: #800080;" data-color="Morado" onclick="selectColor('#800080', 'Morado', this)"></div>
+                        <div class="color-option" style="background-color: #FFC0CB;" data-color="Rosa" onclick="selectColor('#FFC0CB', 'Rosa', this)"></div>
+                        <div class="color-option" style="background-color: #808080;" data-color="Gris" onclick="selectColor('#808080', 'Gris', this)"></div>
+                        <div class="color-option" style="background-color: #A52A2A;" data-color="Café" onclick="selectColor('#A52A2A', 'Café', this)"></div>
+                        <div class="color-option" style="background-color: #000080;" data-color="Azul Marino" onclick="selectColor('#000080', 'Azul Marino', this)"></div>
+                    </div>
+                    <div class="color-input-container">
+                        <div class="color-preview" id="color-preview" style="background-color: #000000;"></div>
+                        <input type="text" id="color-input" class="color-input" placeholder="O escribe un color personalizado" oninput="updateColorPreview(this.value)">
+                        <span id="color-name">Negro</span>
+                    </div>
+                </div>
+
+                <button class="btn" id="add-to-cart-btn">Hacer Pedido</button>
+            </div>
+        </div>
     </div>
-  </div>
-  
-    </section>
+    
+    <!-- Personalizador de Gorras -->
+    <div class="personalizer-container">
+        <h2 class="personalizer-title">Personaliza tu gorra</h2>
+        <div class="hat-canvas-container">
+            <img id="hat-canvas" src="{{ gorra.imagen.url }}" alt="Gorra para personalizar">
+            <img id="logo-preview" src="" alt="Logo personalizado">
+        </div>
+        <div class="personalizer-controls">
+            <input type="file" id="logo-upload" class="file-input" accept="image/*">
+            <button id="upload-btn" class="upload-btn">Agregar logo</button>
+            <button id="apply-btn" class="apply-btn" disabled>Aplicar cambios y Comprar</button>
+            <button id="reset-btn" class="reset-btn">Reiniciar</button>
+        </div>
+        <p>Haz clic en la gorra para posicionar tu logo donde desees.</p>
+    </div>
 
-    {% endblock %}
 
-    {% block extra_js %}
-    <script src="{% static 'js/jsPersonalizador3.js' %}"></script>
-    {% endblock %}
+</section>
+
+
+    <!-- Modal de Pedido -->
+    <div id="pedido-modal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Finalizar Pedido</h2>
+            <form id="pedido-form" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="hidden" name="gorra_id" id="gorra-id-field">
+                <input type="hidden" name="talla" id="talla-hidden">
+                <input type="hidden" name="visera" id="visera-hidden">
+                <input type="hidden" name="color" id="color-hidden">
+                
+                <label for="nombre">Nombre:</label>
+                <input type="text" name="nombre" required>
+                
+                <label for="email">Correo electrónico:</label>
+                <input type="email" name="email" required>
+                
+                <label for="cantidad">Cantidad:</label>
+                <input type="number" name="cantidad" min="1" required>
+
+                <input type="hidden" name="foto1" id="foto1-input">
+                <input type="hidden" name="foto2" id="foto2-input">
+                <input type="hidden" name="foto3" id="foto3-input">
+                <input type="hidden" name="foto4" id="foto4-input">
+                <input type="hidden" name="foto5" id="foto5-input">
+                
+                <button type="submit" class="submit-btn">Confirmar Pedido</button>
+            </form>
+        </div>
+    </div>
+
+<script>
+// Variables para almacenar las selecciones
+let selectedTalla = '';
+let selectedVisera = '';
+let selectedColor = 'Negro'; // Valor por defecto
+
+// Función para seleccionar opciones
+function selectOption(type, value, element) {
+    // Remover selección anterior del mismo tipo
+    const siblings = element.parentNode.querySelectorAll('.option-button');
+    siblings.forEach(btn => btn.classList.remove('selected'));
+    
+    // Seleccionar el elemento actual
+    element.classList.add('selected');
+    
+    // Guardar la selección
+    if (type === 'talla') {
+        selectedTalla = value;
+    } else if (type === 'visera') {
+        selectedVisera = value;
+    }
+}
+
+// Función para seleccionar color de la paleta
+function selectColor(colorCode, colorName, element) {
+    // Remover selección anterior
+    const siblings = element.parentNode.querySelectorAll('.color-option');
+    siblings.forEach(option => option.classList.remove('selected'));
+    
+    // Seleccionar el color actual
+    element.classList.add('selected');
+    
+    // Actualizar preview y valores
+    selectedColor = colorName;
+    document.getElementById('color-preview').style.backgroundColor = colorCode;
+    document.getElementById('color-input').value = colorName;
+    document.getElementById('color-name').textContent = colorName;
+}
+
+// Función para actualizar la vista previa del color personalizado
+function updateColorPreview(color) {
+    const preview = document.getElementById('color-preview');
+    const colorName = document.getElementById('color-name');
+    
+    // Remover selección de la paleta
+    const colorOptions = document.querySelectorAll('.color-option');
+    colorOptions.forEach(option => option.classList.remove('selected'));
+    
+    selectedColor = color;
+    
+    // Intentar aplicar el color como CSS
+    if (color.trim()) {
+        preview.style.backgroundColor = color;
+        colorName.textContent = color;
+    } else {
+        preview.style.backgroundColor = '#000000';
+        colorName.textContent = 'Negro';
+        selectedColor = 'Negro';
+    }
+}
+
+// Modificar el evento del botón "Hacer Pedido" para incluir los valores seleccionados
+document.addEventListener('DOMContentLoaded', function() {
+    const addToCartBtn = document.getElementById('add-to-cart-btn');
+    const modal = document.getElementById('pedido-modal');
+    
+    addToCartBtn.addEventListener('click', function() {
+        // Validar que se hayan seleccionado todos los campos requeridos
+        if (!selectedTalla) {
+            alert('Por favor selecciona una talla');
+            return;
+        }
+        if (!selectedVisera) {
+            alert('Por favor selecciona el tipo de visera');
+            return;
+        }
+        if (!selectedColor.trim()) {
+            alert('Por favor selecciona un color');
+            return;
+        }
+        
+        // Llenar los campos ocultos con las selecciones
+        document.getElementById('talla-hidden').value = selectedTalla;
+        document.getElementById('visera-hidden').value = selectedVisera;
+        document.getElementById('color-hidden').value = selectedColor;
+        document.getElementById('gorra-id-field').value = '{{ gorra.id }}';
+        
+        // Mostrar el modal
+        modal.style.display = 'block';
+    });
+    
+    // Cerrar modal
+    const closeBtn = document.querySelector('.close-btn');
+    closeBtn.addEventListener('click', function() {
+        modal.style.display = 'none';
+    });
+    
+    // Cerrar modal al hacer clic fuera
+    window.addEventListener('click', function(event) {
+        if (event.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
+});
+</script>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/jsPersonalizador3.js' %}"></script>
+{% endblock %}

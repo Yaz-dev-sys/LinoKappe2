@@ -12,7 +12,6 @@ from django.conf import settings
 import smtplib
 import ssl
 import resend
-
 from .forms import PedidoForm
 
 

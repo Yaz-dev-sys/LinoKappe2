@@ -235,6 +235,7 @@
 }
 
 
+
 /* Estilos para el fondo del modal */
 .modal {
     position: fixed;
@@ -244,10 +245,13 @@
     width: 100vw;
     height: 100vh;
     overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
     display: flex;
     align-items: center;
     justify-content: center;
 }
+
+
 
 /* Estilos para el contenido del modal */
 .modal-content {
@@ -257,9 +261,11 @@
     width: 100%;
     max-width: 500px;
     box-shadow: 0 0 15px rgba(0,0,0,0.3);
-    /* Elimina 'position: center;' */
+    position: relative; /* Necesario para el botón de cerrar */
+    margin: 20px; /* Margen para evitar que toque los bordes en pantallas pequeñas */
+    max-height: 90vh; /* Limita la altura máxima */
+    overflow-y: auto; /* Permite scroll si el contenido es muy alto */
 }
-
 
 .close-btn {
     position: absolute;
@@ -267,18 +273,25 @@
     right: 15px;
     font-size: 20px;
     cursor: pointer;
+    color: #999;
+    font-weight: bold;
+    line-height: 1;
+    z-index: 1001;
 }
+
+
 /* Estilos para el formulario del modal */
 #pedido-form {
-    
+    display: flex;
     flex-direction: column;
     gap: 15px;
 }
 
+
 #pedido-form label {
     font-weight: bold;
     color: #333;
-    margin-bottom: 50px;
+    margin-bottom: 5px; /* Corregido: era 50px */
     display: block;
 }
 
@@ -290,6 +303,7 @@
     border-radius: 4px;
     font-size: 16px;
     width: 100%;
+    box-sizing: border-box; /* Asegura que el padding se incluya en el ancho */
 }
 
 #pedido-form input[type="number"]::-webkit-inner-spin-button, 
@@ -315,10 +329,12 @@
     transition: background-color 0.3s;
 }
 
+
 .submit-btn:hover {
     background-color: #218838;
 }
 
+/* Mejoras para el modal existente */
 /* Mejoras para el modal existente */
 .modal-content h2 {
     margin-top: 0;
