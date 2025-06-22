@@ -148,7 +148,7 @@ STORAGES = {
 ALLOWED_HOSTS =['*']
 
 
-CSRF_TRUSTED_ORIGINS = ['http://*']
+CSRF_TRUSTED_ORIGINS = ['http://*', 'https://linokappe2-production.up.railway.app']
 
 # Configuración de almacenamiento para Django 5+
 STORAGES = {
