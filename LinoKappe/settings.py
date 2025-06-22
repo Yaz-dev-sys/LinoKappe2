@@ -145,10 +145,10 @@ STORAGES = {
     },
 }
 
-ALLOWED_HOSTS =['127.0.0.1','Localhost','linokappe-production.up.railway.app']
+ALLOWED_HOSTS =['*']
 
 
-CSRF_TRUSTED_ORIGINS = ['http://*','https://linokappe-production.up.railway.app','https://linokappe-production.up.railway.app/crear']
+CSRF_TRUSTED_ORIGINS = ['http://*']
 
 # Configuración de almacenamiento para Django 5+
 STORAGES = {
